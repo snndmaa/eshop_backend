@@ -1,0 +1,13 @@
+function catchError(err, req, res, next) {     //next is called by express when there's an error
+    if(err.name === 'UnauthorizedError'){
+        return res.status(500).json({message: "The user is not authorized"})
+    }
+
+    if(err.name === 'ValidationError'){
+        return res.status(401).json({message: err})
+    }
+    
+    return res.status(500).json({err})
+}
+
+module.exports = catchError
